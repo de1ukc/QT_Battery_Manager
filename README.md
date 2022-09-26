@@ -1,0 +1,1 @@
+# QT_Battery_Manager
