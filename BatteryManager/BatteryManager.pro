@@ -9,16 +9,19 @@ CONFIG += c++17
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
-    batterymanager.cpp \
+    battery_manager.cpp \
     main.cpp \
-    mainwindow.cpp
+    main_window.cpp
 
 HEADERS += \
-    batterymanager.h \
-    mainwindow.h
+    battery_manager.h \
+    main_window.h
 
 FORMS += \
-    mainwindow.ui
+    main_window.ui
+
+LIBS += \
+   C:/powrprof.lib
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin
