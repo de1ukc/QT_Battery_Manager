@@ -24,6 +24,8 @@ public:
 
     void initChemistry();
     void fill_infrormation();
+    void sleep();
+    void hibernation();
 };
 
 #endif // BATTERY_MANAGER_H
