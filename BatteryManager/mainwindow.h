@@ -21,6 +21,12 @@ private slots:
 
     void on_btnHibernation_clicked();
 
+    void on_pushButton_clicked();
+
+public slots:
+    void onTimeout();
+    void fillingFields();
+
 private:
     Ui::MainWindow *ui;
     batteryManager *bm;
