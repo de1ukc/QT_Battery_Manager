@@ -1,7 +1,7 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
-#include "battery_manager.h"
-#include "qtimer.h"
+
+
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
@@ -64,14 +64,12 @@ void MainWindow::fillingFields()
 
     ui->remaning_time_work_value->setText(this->bm->get_battery_lifetime());
 
-    ui->remaning_time_charge_value->setText(this->bm->get_battery_full_lifetime());
+    ui->remaning_time_charge_value->setText(this->bm->get_battery_remanin_charge_time());
 
-    if (ui->AC_status_value->text() == "От батареи" &&
-            (ui->remaning_time_charge_value->text() == "Устройство подключено к сети" ||
-             ui->remaning_time_work_value->text() == "Устройство подключено к сети")){
 
-        ui->remaning_time_work_value->setText("...");
-        ui->remaning_time_charge_value->setText("...");
+    if (this->bm->get_AC_status() == "От сети"){
+
+        ui->remaning_time_work_value->setText("От сети");
     }
 
     ui->power_saving_value->setText(this->bm->get_battery_saver_status());
@@ -79,15 +77,23 @@ void MainWindow::fillingFields()
     if (this->bm->charging()){
         statusBar()->showMessage(tr("Батарея Заряжается.") + " Скорость зарядки: " +
                                  this->bm->get_charge_speed().c_str() + " mW");
-    }else {
+    }else if (this->bm->discharging()) {
          statusBar()->showMessage(tr("Батарея Разряжается.") + " Скорость разрядки: " +
                                   this->bm->get_charge_speed().c_str() + " mW");
+    } else {
+        statusBar()->showMessage(tr("Батарея Заряжена."));
+    }
+
+    int procent = this->bm->get_battery_procent();
+    //int procent = 10;
+    if(procent < 20){
+      //  ui->batteryBar->setTextVisible(false);
+        ui->batteryBar->setValue(procent);
+     //   ui->batteryBar->setStyleSheet(" QProgressBar { border: 2px solid grey; border-radius: 0px; text-align: center; } QProgressBar::chunk {background-color: #FF0000; width: 1px;}");
+
+    } else if (procent >= 20 && procent <=100) {
+        ui->batteryBar->setValue(procent);
+    } else {
+       // ui->batteryBar->setTextVisible(true); нужно вставить ошибку
     }
 }
-
-
-void MainWindow::on_pushButton_clicked()
-{
-    this->bm->set_battery_saver();
-}
-

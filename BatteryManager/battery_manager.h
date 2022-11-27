@@ -52,12 +52,17 @@ public:
     QString get_designed_capacity();
     QString get_cycles_count();
     QString get_battery_lifetime();
-    QString get_battery_full_lifetime();
+    QString get_battery_remanin_charge_time();
     QString get_battery_saver_status();
     std::string get_charge_speed();
 
+    int get_battery_procent();
+    int get_max_capacity_int();
+    int get_current_capacity_int();
+    long get_rate();
 
     bool charging();
+    bool discharging();
 
 };
 

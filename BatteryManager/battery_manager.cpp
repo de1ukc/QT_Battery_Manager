@@ -144,16 +144,30 @@ QString batteryManager::get_battery_lifetime()
     }
 }
 
-QString batteryManager::get_battery_full_lifetime()
+QString batteryManager::get_battery_remanin_charge_time()
 {
-    if (this->battery.BatteryLifeTime == -1){
-        return "Устройство подключено к сети";
-    } else {
-        int hours = this->battery.BatteryFullLifeTime / 3600;
-        int minuts = (this->battery.BatteryFullLifeTime / 60) - 60 * hours;
+    if (this->discharging()){
+        return "Устройство разряжается";
+    } else if (this->charging()){
+        int div = (this->get_rate() / 60);
+
+        int timezz = (int)(this->get_max_capacity_int() - this->get_current_capacity_int());
+
+        if (div != 0){
+            timezz /= div;
+        }
+
+        int hours = timezz / 60;
+        int minuts = timezz % 60;
+
         std::string time = std::to_string(hours) + " ч. " + std::to_string(minuts) + " м. ";
+
         return QString::fromStdString(time);
+    } else {
+        return "Не заряжается";
     }
+
+
 }
 
 QString batteryManager::get_battery_saver_status()
@@ -172,10 +186,39 @@ std::string batteryManager::get_charge_speed()
     return std::to_string(this->information.Rate);
 }
 
+int batteryManager::get_battery_procent()
+{
+    int battery_life_percent = this->battery.BatteryLifePercent;
+    return battery_life_percent;
+}
+
+int batteryManager::get_max_capacity_int()
+{
+    int capacity = this->information.MaxCapacity;
+    return capacity;
+}
+
+int batteryManager::get_current_capacity_int()
+{
+    int capacity = this->information.RemainingCapacity;
+    return capacity;
+}
+
+long batteryManager::get_rate()
+{
+    return this->information.Rate;
+}
+
 bool batteryManager::charging()
 {
     return this->information.Charging;
 }
+
+bool batteryManager::discharging()
+{
+    return this->information.Discharging;
+}
+
 
 
 
