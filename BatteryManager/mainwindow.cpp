@@ -62,14 +62,18 @@ void MainWindow::fillingFields()
 
     ui->cycles_value->setText(this->bm->get_cycles_count());
 
-    ui->remaning_time_work_value->setText(this->bm->get_battery_lifetime());
+    QString bat_lifetime = this->bm->get_battery_lifetime();
+    if (bat_lifetime == "От сети" && this->bm->get_AC_status() == "От батареи"){
+        ui->remaning_time_work_value->setText("...");
+    } else {
+        ui->remaning_time_work_value->setText(bat_lifetime);
+    }
 
     ui->remaning_time_charge_value->setText(this->bm->get_battery_remanin_charge_time());
 
-
-    if (this->bm->get_AC_status() == "От сети"){
-
-        ui->remaning_time_work_value->setText("От сети");
+    if (ui->remaning_time_work->text() == "От сети" &&
+            this->bm->get_AC_status() == "От батареи"){
+        ui->remaning_time_work->setText("...");
     }
 
     ui->power_saving_value->setText(this->bm->get_battery_saver_status());

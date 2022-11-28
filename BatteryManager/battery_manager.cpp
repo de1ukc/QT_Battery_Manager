@@ -135,7 +135,7 @@ QString batteryManager::get_cycles_count(){
 QString batteryManager::get_battery_lifetime()
 {
     if (this->battery.BatteryLifeTime == -1){
-        return "Устройство подключено к сети";
+        return "От сети";
     } else {
         int hours = this->battery.BatteryLifeTime / 3600;
         int minuts = (this->battery.BatteryLifeTime / 60) - 60 * hours;
