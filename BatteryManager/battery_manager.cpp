@@ -183,7 +183,8 @@ QString batteryManager::get_battery_saver_status()
 
 std::string batteryManager::get_charge_speed()
 {
-    return std::to_string(this->information.Rate);
+    return std::to_string(abs(this->get_rate()));
+    //return std::to_string(this->information.Rate); // неверно, так как DWORD
 }
 
 int batteryManager::get_battery_procent()
@@ -206,6 +207,7 @@ int batteryManager::get_current_capacity_int()
 
 long batteryManager::get_rate()
 {
+    long long a = this->information.Rate;
     return this->information.Rate;
 }
 
