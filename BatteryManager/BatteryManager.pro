@@ -26,4 +26,5 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
 
 
-RC_FILE = battery_icom.rc
+# RC_FILE = battery_icom.rc
+RC_ICON = battery_icon.ico
