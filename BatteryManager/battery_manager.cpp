@@ -5,8 +5,8 @@
 batteryManager::batteryManager()
 {
 
-    bool fill_battery_sucsess = fill_battery();
-    fill_infrormation();
+    bool fill_battery_sucsess = fillBattery();
+    fillInfrormation();
     initChemistry();
 
 }
@@ -53,11 +53,11 @@ void batteryManager::initChemistry(){
     SetupDiDestroyDeviceInfoList(DeviceInfoSet);
 }
 
-void batteryManager::fill_infrormation(){
+void batteryManager::fillInfrormation(){
    CallNtPowerInformation(SystemBatteryState, NULL, 0, &this->information, sizeof(this->information));
 }
 
-bool batteryManager::fill_battery()
+bool batteryManager::fillBattery()
 {
     return  GetSystemPowerStatus(&this->battery);
 }
@@ -71,12 +71,7 @@ void batteryManager::hibernation(){
     SetSuspendState(true, false, false);
 }
 
-//void batteryManager::set_battery_saver()
-//{
-//    this->battery.SystemStatusFlag = 1;
-//}
-
-QString batteryManager::get_AC_status()
+QString batteryManager::getACStatus()
 {
     if (this->battery.ACLineStatus == 1) {
         return "От сети";
@@ -87,12 +82,12 @@ QString batteryManager::get_AC_status()
     }
 }
 
-QString batteryManager::get_battery_charge_procent(){
+QString batteryManager::getBatteryChargeProcent(){
     int battery_life_percent = this->battery.BatteryLifePercent;
     return QString::number(battery_life_percent);
 }
 
-QString batteryManager::get_battery_type()
+QString batteryManager::getBatteryType()
 {
     char a[4];
 
@@ -105,25 +100,25 @@ QString batteryManager::get_battery_type()
     return battery_type;
 }
 
-QString batteryManager::get_current_capacity()
+QString batteryManager::getCurrentCapacity()
 {
     QString capacity = QString::number(this->information.RemainingCapacity);
     return capacity;
 }
 
-QString batteryManager::get_max_capacity()
+QString batteryManager::getMaxCapacity()
 {
     QString capacity = QString::number(this->information.MaxCapacity);
     return capacity;
 }
 
-QString batteryManager::get_designed_capacity()
+QString batteryManager::getDesignedCapacity()
 {
     QString capacity = QString::number(this->DesignedCapacity);
     return capacity;
 }
 
-QString batteryManager::get_cycles_count(){
+QString batteryManager::getCyclesCount(){
     if (this->CycleCount == 0){
         return "Батарея не имеет счётчика";
     } else {
@@ -132,7 +127,7 @@ QString batteryManager::get_cycles_count(){
     }
 }
 
-QString batteryManager::get_battery_lifetime()
+QString batteryManager::getBatteryLifetime()
 {
     if (this->battery.BatteryLifeTime == -1){
         return "От сети";
@@ -144,14 +139,14 @@ QString batteryManager::get_battery_lifetime()
     }
 }
 
-QString batteryManager::get_battery_remanin_charge_time()
+QString batteryManager::getBatteryRemaninChargeTime()
 {
     if (this->discharging()){
         return "Устройство разряжается";
     } else if (this->charging()){
-        int div = (this->get_rate() / 60);
+        int div = (this->getRate() / 60);
 
-        int timezz = (int)(this->get_max_capacity_int() - this->get_current_capacity_int());
+        int timezz = (int)(this->getMaxCapacityInt() - this->getCurrentCapacityInt());
 
         if (div != 0){
             timezz /= div;
@@ -170,7 +165,7 @@ QString batteryManager::get_battery_remanin_charge_time()
 
 }
 
-QString batteryManager::get_battery_saver_status()
+QString batteryManager::getBatterySaverStatus()
 {
     if (this->battery.SystemStatusFlag == 0){
         return "Выключено";
@@ -181,33 +176,33 @@ QString batteryManager::get_battery_saver_status()
 
 
 
-std::string batteryManager::get_charge_speed()
+std::string batteryManager::getChargeSpeed()
 {
-    return std::to_string(abs(this->get_rate()));
+    return std::to_string(abs(this->getRate()));
     //return std::to_string(this->information.Rate); // неверно, так как DWORD
 }
 
-int batteryManager::get_battery_procent()
+int batteryManager::getBatteryProcent()
 {
     int battery_life_percent = this->battery.BatteryLifePercent;
     return battery_life_percent;
 }
 
-int batteryManager::get_max_capacity_int()
+int batteryManager::getMaxCapacityInt()
 {
     int capacity = this->information.MaxCapacity;
     return capacity;
 }
 
-int batteryManager::get_current_capacity_int()
+int batteryManager::getCurrentCapacityInt()
 {
     int capacity = this->information.RemainingCapacity;
     return capacity;
 }
 
-long batteryManager::get_rate()
+long batteryManager::getRate()
 {
-    long long a = this->information.Rate;
+    //long long a = this->information.Rate;
     return this->information.Rate;
 }
 

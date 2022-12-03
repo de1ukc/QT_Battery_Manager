@@ -37,29 +37,29 @@ public:
     batteryManager();
 
     void initChemistry();
-    void fill_infrormation();
-    bool fill_battery();
-    void fill_chemistry();
+    void fillInfrormation();
+    bool fillBattery();
+    void fillChemistry();
     void sleep();
     void hibernation();
  //   void set_battery_saver();
 
-    QString get_AC_status();
-    QString get_battery_charge_procent();
-    QString get_battery_type();
-    QString get_current_capacity();
-    QString get_max_capacity();
-    QString get_designed_capacity();
-    QString get_cycles_count();
-    QString get_battery_lifetime();
-    QString get_battery_remanin_charge_time();
-    QString get_battery_saver_status();
-    std::string get_charge_speed();
+    QString getACStatus();
+    QString getBatteryChargeProcent();
+    QString getBatteryType();
+    QString getCurrentCapacity();
+    QString getMaxCapacity();
+    QString getDesignedCapacity();
+    QString getCyclesCount();
+    QString getBatteryLifetime();
+    QString getBatteryRemaninChargeTime();
+    QString getBatterySaverStatus();
+    std::string getChargeSpeed();
 
-    int get_battery_procent();
-    int get_max_capacity_int();
-    int get_current_capacity_int();
-    long get_rate();
+    int getBatteryProcent();
+    int getMaxCapacityInt();
+    int getCurrentCapacityInt();
+    long getRate();
 
     bool charging();
     bool discharging();

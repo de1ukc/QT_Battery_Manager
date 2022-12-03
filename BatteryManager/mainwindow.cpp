@@ -9,7 +9,7 @@ MainWindow::MainWindow(QWidget *parent)
 {
 
     bm = new batteryManager();
-    bm->fill_infrormation();
+    bm->fillInfrormation();
 
     ui->setupUi(this);
 
@@ -40,55 +40,55 @@ void MainWindow::on_btnHibernation_clicked()
 
 void MainWindow::onTimeout()
 {
-    bm->fill_battery();
-    bm->fill_infrormation();
+    bm->fillBattery();
+    bm->fillInfrormation();
     bm->initChemistry();
     fillingFields();
 }
 
 void MainWindow::fillingFields()
 {
-    ui->AC_status_value->setText(this->bm->get_AC_status());
+    ui->AC_status_value->setText(this->bm->getACStatus());
 
-    ui->battery_charge_level_value->setText(this->bm->get_battery_charge_procent() + "%");
+    ui->battery_charge_level_value->setText(this->bm->getBatteryChargeProcent() + "%");
 
-    ui->battery_type_value->setText(this->bm->get_battery_type());
+    ui->battery_type_value->setText(this->bm->getBatteryType());
 
-    ui->current_capacity_value->setText(this->bm->get_current_capacity() + " mWh");
+    ui->current_capacity_value->setText(this->bm->getCurrentCapacity() + " mWh");
 
-    ui->max_capacity_value->setText(this->bm->get_max_capacity() + " mWh");
+    ui->max_capacity_value->setText(this->bm->getMaxCapacity() + " mWh");
 
-    ui->designed_capacity_value->setText(this->bm->get_designed_capacity() + " mWh");
+    ui->designed_capacity_value->setText(this->bm->getDesignedCapacity() + " mWh");
 
-    ui->cycles_value->setText(this->bm->get_cycles_count());
+    ui->cycles_value->setText(this->bm->getCyclesCount());
 
-    QString bat_lifetime = this->bm->get_battery_lifetime();
-    if (bat_lifetime == "От сети" && this->bm->get_AC_status() == "От батареи"){
+    QString bat_lifetime = this->bm->getBatteryLifetime();
+    if (bat_lifetime == "От сети" && this->bm->getACStatus() == "От батареи"){
         ui->remaning_time_work_value->setText("...");
     } else {
         ui->remaning_time_work_value->setText(bat_lifetime);
     }
 
-    ui->remaning_time_charge_value->setText(this->bm->get_battery_remanin_charge_time());
+    ui->remaning_time_charge_value->setText(this->bm->getBatteryRemaninChargeTime());
 
     if (ui->remaning_time_work->text() == "От сети" &&
-            this->bm->get_AC_status() == "От батареи"){
+            this->bm->getACStatus() == "От батареи"){
         ui->remaning_time_work->setText("...");
     }
 
-    ui->power_saving_value->setText(this->bm->get_battery_saver_status());
+    ui->power_saving_value->setText(this->bm->getBatterySaverStatus());
 
     if (this->bm->charging()){
         statusBar()->showMessage(tr("Батарея Заряжается.") + " Скорость зарядки: " +
-                                 this->bm->get_charge_speed().c_str() + " mW");
+                                 this->bm->getChargeSpeed().c_str() + " mW");
     }else if (this->bm->discharging()) {
          statusBar()->showMessage(tr("Батарея Разряжается.") + " Скорость разрядки: " +
-                                  this->bm->get_charge_speed().c_str() + " mW");
+                                  this->bm->getChargeSpeed().c_str() + " mW");
     } else {
         statusBar()->showMessage(tr("Батарея Заряжена."));
     }
 
-    int procent = this->bm->get_battery_procent();
+    int procent = this->bm->getBatteryProcent();
     //int procent = 10;
     if(procent < 20){
       //  ui->batteryBar->setTextVisible(false);
