@@ -4,11 +4,9 @@
 
 batteryManager::batteryManager()
 {
-
     bool fill_battery_sucsess = fillBattery();
     fillInfrormation();
     initChemistry();
-
 }
 
 void batteryManager::initChemistry(){
@@ -61,7 +59,6 @@ bool batteryManager::fillBattery()
 {
     return  GetSystemPowerStatus(&this->battery);
 }
-
 
 void batteryManager::sleep(){
     SetSuspendState(false, false, true);
@@ -161,8 +158,6 @@ QString batteryManager::getBatteryRemaninChargeTime()
     } else {
         return "Не заряжается";
     }
-
-
 }
 
 QString batteryManager::getBatterySaverStatus()
