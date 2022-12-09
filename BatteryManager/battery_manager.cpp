@@ -211,6 +211,13 @@ bool batteryManager::discharging()
     return this->information.Discharging;
 }
 
+bool batteryManager::isBatteryInSystem()
+{
+    return this->information.BatteryPresent;
+}
+
+
+
 
 
 

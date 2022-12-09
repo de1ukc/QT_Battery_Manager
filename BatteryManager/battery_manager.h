@@ -63,8 +63,10 @@ public:
 
     bool charging();
     bool discharging();
+    bool isBatteryInSystem();
 
 };
+
 
 #endif // BATTERY_MANAGER_H
 
